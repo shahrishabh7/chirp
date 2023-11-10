@@ -10,7 +10,6 @@ datasource db {
   url = env("DATABASE_URL")
   relationMode = "prisma"
 }
-  
 
 model Example {
     id        String   @id @default(cuid())
