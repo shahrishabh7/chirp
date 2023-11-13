@@ -10,7 +10,15 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ['images.clerk.dev'],
+    domains: ['images.clerk.dev', 'img.clerk.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'assets.example.com',
+        port: '',
+        pathname: '/account123/**',
+      },
+    ],
   },
 
   /**
