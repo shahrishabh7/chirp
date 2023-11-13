@@ -2,6 +2,10 @@ import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 import { RouterOutputs, api } from "~/utils/api";
 
@@ -32,7 +36,9 @@ const PostView = (props: PostWithAuthor) => {
       <div className="flex flex-col">
         <div className="flex text-slate-400">
           <span>{`@${author?.username} `}</span>
-          <span className="font-thin">{"- 1 hour ago"}</span>
+          <span className="font-thin">{`- ${dayjs(
+            post.createdAt
+          ).fromNow()}`}</span>
         </div>
         <span>{post.content}</span>
       </div>
