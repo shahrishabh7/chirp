@@ -45,6 +45,10 @@ export const postsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
+      if (!authorId) {
+        throw new Error("User is not authenticated");
+      }
+
       const post = await ctx.prisma.post.create({
         data: {
           content: input.content,
