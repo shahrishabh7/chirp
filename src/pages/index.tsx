@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 
 import { RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
-import { LoadingPage } from "~/components/loading";
+import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -52,9 +52,25 @@ const CreatePostWizard = () => {
         placeholder="Type some emojis!"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            mutate({ content: input });
+          }
+        }}
         disabled={isPosting}
       ></input>
-      <button onClick={() => mutate({ content: input })}>Post</button>
+
+      {input !== "" && !isPosting && (
+        <button onClick={() => mutate({ content: input })} disabled={isPosting}>
+          Post
+        </button>
+      )}
+      {isPosting && (
+        <div className="flex justify-center">
+          <LoadingSpinner size={24} />
+        </div>
+      )}
     </div>
   );
 };
