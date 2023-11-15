@@ -1,19 +1,13 @@
-import { User, clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import { TRPCError } from "@trpc/server";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  publicProcedure,
-  privateProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const profileRouter = createTRPCRouter({
   getUserbyUsername: publicProcedure
     .input(z.object({ username: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .query(async ({ input }) => {
       const [user] = await clerkClient.users.getUserList({
         username: [input.username],
       });

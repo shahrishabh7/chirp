@@ -1,5 +1,4 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { GetStaticProps, InferGetStaticPropsType, type NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { api } from "~/utils/api";
 import { createServerSideHelpers } from "@trpc/react-query/server";
@@ -53,7 +52,9 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
           ></Image>
         </div>
         <div className="h-[64px]"></div>
-        <div className="p-4 text-2xl font-bold">{`@${data.username}`}</div>
+        <div className="p-4 text-2xl font-bold">{`@${
+          data.username || ""
+        }`}</div>
         <div className="w-full border-b border-slate-400"></div>
         <ProfileFeed userId={data.id}></ProfileFeed>
       </PageLayout>

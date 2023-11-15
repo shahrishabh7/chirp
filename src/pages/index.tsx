@@ -1,13 +1,11 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
 import Image from "next/image";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
@@ -26,8 +24,7 @@ const CreatePostWizard = () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
     },
-    onError: (e) => {
-      const errorMessage = e.message;
+    onError: () => {
       toast.error("Failed to post, try again! Emojis only 🤴🏽");
       return;
     },
@@ -40,7 +37,7 @@ const CreatePostWizard = () => {
       <Image
         className="h-14 w-14 rounded-full"
         src={user.imageUrl}
-        alt={`@${user.username}'s profile picture`}
+        alt={`@${user.username ?? ""}'s profile picture`}
         width={56}
         height={56}
       />
@@ -89,7 +86,7 @@ const Feed = () => {
 };
 
 const Home: NextPage = () => {
-  const { user, isLoaded: userLoaded, isSignedIn } = useUser();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
   api.posts.getAll.useQuery();
 
   if (!userLoaded) return <div />;
