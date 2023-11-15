@@ -27,14 +27,9 @@ const CreatePostWizard = () => {
       void ctx.posts.getAll.invalidate();
     },
     onError: (e) => {
-      const errorMessage = e.data?.error?.message;
-      console.log(errorMessage);
-      if (errorMessage && errorMessage[0]) {
-        toast.error(errorMessage[0]);
-        return;
-      } else {
-        toast.error("Failed to post, please try again!");
-      }
+      const errorMessage = e.message;
+      toast.error("Failed to post, try again! Emojis only 🤴🏽");
+      return;
     },
   });
 
