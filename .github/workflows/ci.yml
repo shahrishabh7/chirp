@@ -1,0 +1,35 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DATABASE_URL: "fakeurl.com"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x] # You can specify more versions if needed
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run TypeScript type checking
+        run: npx tsc --noEmit
+
+      - name: Run Lint
+        run: npm run lint # Ensure you have a lint script in your package.json
