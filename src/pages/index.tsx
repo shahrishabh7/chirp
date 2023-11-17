@@ -12,6 +12,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { PageLayout } from "~/components/layout";
 import { PostView } from "~/components/postview";
+import { Header } from "~/components/header";
+import { Footer } from "~/components/footer";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -80,7 +82,7 @@ const Feed = () => {
   if (!data) return <div>Something went wrong...</div>;
 
   return (
-    <div className="flex grow flex-col">
+    <div className="flex grow flex-col overflow-y-scroll">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
@@ -97,6 +99,7 @@ const Home: NextPage = () => {
   return (
     <>
       <PageLayout>
+        <Header></Header>
         <div className="flex border-b border-slate-400 p-4">
           {!isSignedIn && (
             <div className="flex justify-center">
@@ -106,6 +109,7 @@ const Home: NextPage = () => {
           {!!isSignedIn && <CreatePostWizard />}
         </div>
         <Feed />
+        <Footer></Footer>
       </PageLayout>
     </>
   );
