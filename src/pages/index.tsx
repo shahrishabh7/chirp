@@ -17,7 +17,7 @@ const CreatePostWizard = () => {
   const { user } = useUser();
   const [input, setInput] = useState<string>("");
 
-  const ctx = api.useContext();
+  const ctx = api.useUtils();
 
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {

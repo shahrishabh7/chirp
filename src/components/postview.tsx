@@ -11,7 +11,6 @@ type PostWithAuthor = RouterOutputs["posts"]["getAll"][number];
 
 export const PostView = (props: PostWithAuthor) => {
   const { post, author } = props;
-
   if (!author) return null;
 
   return (

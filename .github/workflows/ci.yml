@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  DATABASE_URL: "fakeurl.com"
+  DATABASE_URL: "mysql://c8sycm1f5ajk11eiyjpd:pscale_pw_xZrW2RwvSy51LfmEq1dFcg7htXHQnmx1s4cFyWKcDZ2@aws.connect.psdb.cloud/chirp-clone?sslaccept=strict"
 
 jobs:
   build:
