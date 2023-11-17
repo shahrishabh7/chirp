@@ -40,6 +40,7 @@ const CreatePostWizard = () => {
         alt={`@${user.username ?? ""}'s profile picture`}
         width={56}
         height={56}
+        priority={true}
       />
       <input
         className="grow bg-transparent outline-none"
@@ -72,12 +73,14 @@ const CreatePostWizard = () => {
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
+  console.log("feedData", data);
+
   if (postsLoading) return <LoadingPage />;
 
   if (!data) return <div>Something went wrong...</div>;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex grow flex-col">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
